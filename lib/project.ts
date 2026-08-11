@@ -20,6 +20,40 @@
 
 export const SITE_URL = "https://www.auralakeviewvillage.org";
 
+/**
+ * Freshness dates for the site, in ISO `YYYY-MM-DD` (interpreted as UTC).
+ *
+ * `modified` drives three things that must always agree, or Google discounts
+ * all three: the visible "last updated" line in the footer, `dateModified` in
+ * the JSON-LD, and `lastModified` in the sitemap.
+ *
+ * BUMP THIS BY HAND, and only when a fact on the site actually changed — a new
+ * price band, a release, a floor plan, an occupancy date. Do NOT wire it to
+ * `new Date()`: that re-stamps every page as "updated today" on every deploy,
+ * which is the artificial-freshness pattern Google's spam guidance calls out,
+ * and it destroys the signal on the deploys where something genuinely did
+ * change. A date that only moves when the content moves is the whole point.
+ */
+export const DATES = {
+  published: "2026-08-11",
+  modified: "2026-08-11",
+} as const;
+
+/**
+ * Renders an ISO date for display. Pinned to UTC because `new Date("2026-08-11")`
+ * parses as UTC midnight, and formatting that in any negative-offset zone (ours
+ * included) would render the previous day — putting the visible date one day
+ * behind the JSON-LD.
+ */
+export function formatDate(iso: string): string {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-CA", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 /** @verify — placeholder brokerage contact. Replace before launch. */
 export const CONTACT = {
   phone: "+1-416-910-8923",
