@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@/components/Analytics";
 import { Jost, Fraunces } from "next/font/google";
 import "./globals.css";
 import { ADDRESS, PRICING, PROJECT, SITE_URL } from "@/lib/project";
@@ -64,7 +65,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-CA" className={`${jost.variable} ${fraunces.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
