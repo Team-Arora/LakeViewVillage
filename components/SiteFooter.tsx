@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LEGAL_NAV } from "@/lib/legal";
 import {
   ADDRESS,
   CONTACT,
+  DATES,
   DISCLAIMER,
+  formatDate,
   NAV,
   PHASE,
   PRICING,
@@ -80,7 +83,23 @@ export function SiteFooter() {
 
         <div className="mt-12 border-t border-black/10 pt-8">
           <p className="max-w-4xl text-[11px] leading-relaxed text-ash">{DISCLAIMER}</p>
+          <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+            {LEGAL_NAV.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="text-[11px] text-ash underline decoration-black/15 underline-offset-4 transition-colors hover:text-mauve-deep hover:decoration-mauve-deep"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
           <p className="mt-5 text-[11px] text-ash">
+            Pricing, floor plans, and availability last updated{" "}
+            <time dateTime={DATES.modified}>{formatDate(DATES.modified)}</time>.
+          </p>
+          <p className="mt-2 text-[11px] text-ash">
             &copy; {new Date().getFullYear()} {CONTACT.brokerage}. All rights reserved.
           </p>
         </div>
