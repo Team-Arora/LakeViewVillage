@@ -37,8 +37,12 @@ export const LEGAL_ENTITY = {
    * is worse than none, so this renders our own constant.
    */
   contactEmail: CONTACT.email,
-  /** @verify — source specifies Ottawa, which is Caivan's seat, not the brokerage's. */
-  venue: "the City of Ottawa, Ontario",
+  /**
+   * Set to the brokerage's own jurisdiction. The supplied copy specified Ottawa,
+   * which is the developer's seat — it would have obliged a Mississauga buyer to
+   * litigate five hours away against a Mississauga brokerage.
+   */
+  venue: "Mississauga, Ontario",
   effectiveDate: DATES.modified,
 } as const;
 
