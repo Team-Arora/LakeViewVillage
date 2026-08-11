@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@/components/Analytics";
 import { Jost, Fraunces } from "next/font/google";
 import "./globals.css";
-import { ADDRESS, PRICING, PROJECT, SITE_URL } from "@/lib/project";
+import { ADDRESS, PHASE, PRICING, PROJECT, SITE_URL } from "@/lib/project";
 
 const jost = Jost({
   subsets: ["latin"],
@@ -17,8 +17,8 @@ const fraunces = Fraunces({
   axes: ["SOFT", "WONK"],
 });
 
-const title = `${PROJECT.name} | Townhomes From ${PRICING.fromDisplay} | ${ADDRESS.city}`;
-const description = `Aura at Lakeview Village — final release urban towns by ${PROJECT.developer} at ${ADDRESS.street}, ${ADDRESS.city} (${ADDRESS.crossStreets}). From ${PRICING.fromDisplay}, ${PRICING.sqftMin}–${PRICING.sqftMax} sq. ft., ${PRICING.bedsMin}–${PRICING.bedsMax} bedrooms, underground parking included. Get the price list and all seven floor plans.`;
+const title = `Aura Lakeview Village Townhomes | From the High $500s | ${ADDRESS.city}`;
+const description = `Aura Lakeview Village — final release of ${PHASE.homeCount} towns by Caivan at 800 Hydro Rd, ${ADDRESS.city}. From ${PRICING.fromDisplay}, ${PRICING.bedsMin}–${PRICING.bedsMax} beds, parking included. Get all 7 floor plans.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

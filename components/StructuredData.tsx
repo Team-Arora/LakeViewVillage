@@ -1,6 +1,7 @@
 import {
   ADDRESS,
   CONTACT,
+  DATES,
   FAQS,
   PHASE,
   PRICING,
@@ -54,6 +55,23 @@ export function StructuredData() {
       name: PROJECT.name,
       inLanguage: "en-CA",
       publisher: { "@id": `${SITE_URL}/#brokerage` },
+    },
+    // The freshness signal. `dateModified` is only trusted when it matches a
+    // date the user can actually see, so this is the same DATES.modified the
+    // footer renders and the sitemap reports.
+    {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/#webpage`,
+      url: SITE_URL,
+      name: PROJECT.name,
+      inLanguage: "en-CA",
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      about: { "@id": `${SITE_URL}/#development` },
+      primaryImageOfPage: images[0],
+      datePublished: DATES.published,
+      dateModified: DATES.modified,
+      publisher: { "@id": `${SITE_URL}/#brokerage` },
+      breadcrumb: { "@id": `${SITE_URL}/#breadcrumb` },
     },
     {
       "@type": "RealEstateAgent",
