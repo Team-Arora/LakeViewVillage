@@ -77,6 +77,20 @@ export function RegisterForm({
       <p className={`mt-1 text-xs ${dark ? "text-white/60" : "text-ash"}`}>{subheading}</p>
 
       <form onSubmit={onSubmit} className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {/* Honeypot. Hidden from sight and from assistive tech, out of the tab
+            order, and with autocomplete off so a password manager never fills
+            it. A bot that completes every field gets silently discarded. */}
+        <div aria-hidden="true" className="hidden">
+          <label htmlFor={`${idPrefix}-company`}>Company</label>
+          <input
+            id={`${idPrefix}-company`}
+            name="company"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+
         <div>
           <label htmlFor={`${idPrefix}-first`} className="sr-only">
             First name

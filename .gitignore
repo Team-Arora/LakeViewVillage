@@ -28,4 +28,10 @@ Mississauga - Aura - Lakeview Village/
 
 # Editor and agent-local settings — machine-specific, not project config.
 .vscode/
-.claude/settings.local.json
+
+# Agent tooling: local config, MCP server registrations, and any transcript or
+# session state. None of it belongs in the repo.
+.claude/
+.mcp.json
+CLAUDE.md
+.claude-*
