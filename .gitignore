@@ -19,7 +19,7 @@ next-env.d.ts
 # ...but the gated floor plans are application data. /api/floorplans reads them
 # off disk at request time, so if they are not committed the download route
 # returns 500 in production.
-!assets/floorplans/*.pdf
+!auralakeviewvillage/assets/floorplans/*.pdf
 
 # The builder's source kit: ~133 MB of .ai/.eps/master renderings. It is the
 # provenance for lib/project.ts, but the web assets derived from it already
