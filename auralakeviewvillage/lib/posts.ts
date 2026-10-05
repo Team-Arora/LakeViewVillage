@@ -37,7 +37,160 @@ export type Post = {
   body: PostBlock[];
 };
 
+/**
+ * Inline links. Block text may contain `[label](href)`; everything else stays
+ * plain text. The renderer maps each segment to a text node or an <a>.
+ * Relative hrefs ("/blog/...") are internal; absolute ones are external.
+ */
+export type InlineSegment = { text: string; href?: string };
+
+const LINK_PATTERN = /\[([^\]]+)\]\(([^)\s]+)\)/g;
+
+export function parseInline(text: string): InlineSegment[] {
+  const segments: InlineSegment[] = [];
+  let last = 0;
+  for (const match of text.matchAll(LINK_PATTERN)) {
+    const index = match.index ?? 0;
+    if (index > last) segments.push({ text: text.slice(last, index) });
+    segments.push({ text: match[1], href: match[2] });
+    last = index + match[0].length;
+  }
+  if (last < text.length) segments.push({ text: text.slice(last) });
+  return segments;
+}
+
 export const POSTS: Post[] = [
+  {
+    slug: "fan-coil-erv-maintenance-guide",
+    title: `Owning the Fan Coil and ERV at Aura: A Maintenance Guide for ${PROJECT.masterPlan} Buyers`,
+    description:
+      "Aura homes run on district energy, with a rented fan coil, ERV and thermostat. What each one does, what builds up, what the rental may cover, and what to check before closing.",
+    published: "2026-10-05",
+    readMinutes: 5,
+    tag: "Ownership",
+    body: [
+      {
+        type: "p",
+        text: `First closings at Aura are scheduled for ${PRICING.occupancy}. Most buyers spend the months before that on deposits, mortgage approval and finishes. Very few ask how the home is heated, cooled and ventilated until the first winter, when a filter is clogged or a vent starts to smell musty.`,
+      },
+      {
+        type: "p",
+        text: `Aura homes don't work like a typical ${ADDRESS.city} house with a furnace in the basement. It helps to know what you're buying, which parts you own, and what needs looking after.`,
+      },
+      { type: "h2", text: "What heats, cools and ventilates an Aura town" },
+      {
+        type: "p",
+        text: `Every Aura home connects to the ${PROJECT.masterPlan} District Energy system. A central plant supplies hydronic heating, chilled water and domestic hot water, so there is no furnace or outdoor AC unit of your own.`,
+      },
+      {
+        type: "p",
+        text: "Inside the suite, three pieces of equipment do the work:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Fan coil unit. A blower pushes air across a coil carrying hot or chilled water from the district plant, then sends it through short supply runs to each room. It does the job a furnace and air conditioner would do in a detached house.",
+          "ERV (Energy Recovery Ventilator). It pulls stale air out and brings fresh air in, recovering heat and some moisture along the way. It runs continuously, which matters in a tightly built new home.",
+          "Smart thermostat. It controls the fan coil.",
+        ],
+      },
+      {
+        type: "p",
+        text: "One more thing to know: the over-the-range microwave vents to the outside, and a standard dryer will too. Both exhaust runs collect grease or lint over time.",
+      },
+      { type: "h2", text: "Rented equipment: ask what the agreement covers" },
+      {
+        type: "p",
+        text: `${PROJECT.developer}'s purchase material lists the fan coil, the ERV and the smart thermostat as rental items. That is standard for a district energy setup, but it changes who looks after them.`,
+      },
+      {
+        type: "p",
+        text: "Some rental agreements include regular servicing and filter changes. Others only cover repairs when something breaks. Before closing, get the answer in writing:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Who is the rental provider, and what is the monthly cost?",
+          "Is routine maintenance included? How often, and does it cover filters?",
+          "Is coil or drain pan cleaning included, or is that on you?",
+          "Are you allowed to hire your own technician to clean the unit, or does that affect the rental terms?",
+        ],
+      },
+      {
+        type: "p",
+        text: "If the provider covers it, let them do it. Paying an outside company for work that's already included is money wasted, and unauthorised work on rented equipment can cause problems with the agreement.",
+      },
+      { type: "h2", text: "What builds up over time" },
+      {
+        type: "p",
+        text: "A fan coil system is compact, and that's partly why it needs attention. Air passes through a small cabinet and a short set of ducts many times a day, so dirt has fewer places to spread out.",
+      },
+      {
+        type: "ul",
+        items: [
+          "The fan coil filter catches dust before it reaches the coil. When it clogs, airflow drops and the unit works harder for the same comfort.",
+          "The coil and drain pan get wet during cooling season. Dust that gets past the filter sticks to the damp coil, and standing water in the pan is the usual source of a musty smell in July.",
+          `ERV filters and core trap outdoor dust and pollen. ${PROJECT.masterPlan} will be an active construction site for years, so expect these to load up faster than the manual suggests.`,
+          "Supply runs in a brand-new home often hold drywall dust and debris from the build. That's worth clearing out once after you move in, before it circulates through the rooms.",
+          "The dryer vent collects lint along its whole length, not just at the lint trap. A blocked dryer vent is a fire risk, not only an efficiency problem.",
+        ],
+      },
+      { type: "h2", text: "A simple maintenance schedule" },
+      {
+        type: "p",
+        text: "The intervals below are common starting points. Your equipment manual and rental agreement come first wherever they say something different.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Fan coil filter check: every 1 to 3 months. You, or the rental provider.",
+          "ERV filters: every 3 months, more often near construction. You, or the rental provider.",
+          "ERV core: once a year, per the manual. You, or the rental provider.",
+          "Supply runs, coil and drain pan: after move-in, then every few years. The rental provider or a cleaning company.",
+          "Dryer vent: once a year. A cleaning company.",
+          "Range hood filter: every few months. You.",
+        ],
+      },
+      { type: "h2", text: "If you need to hire someone" },
+      {
+        type: "p",
+        text: "When the rental agreement doesn't include cleaning, pick a company that works on condo-style fan coil systems. Plenty of duct cleaners only quote whole-house furnace jobs, and their truck-mounted equipment is sized for a basement trunk line, not a fan coil cabinet.",
+      },
+      {
+        type: "p",
+        text: "Two things to ask before booking. First, which parts of the system are inside your unit and which belong to the condominium corporation. Second, whether they'll show you photos or video of the coil and ducts before and after, so you can see what was actually done.",
+      },
+      {
+        type: "p",
+        text: "One local option is the [condo and fan coil cleaning service from Duct Cleaning Mississauga](https://ductcleaningmississauga.ca/services/condo-duct-cleaning). It covers the in-suite fan coil, coil, drain pan and supply runs at a published flat rate, and dryer vent cleaning can be added to the same visit.",
+      },
+      { type: "h2", text: "Before your PDI and closing" },
+      {
+        type: "p",
+        text: "Your pre-delivery inspection (PDI) is the easiest time to sort this out, because the builder's representative is standing in the unit with you.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Find the fan coil and the ERV, and ask how to open each one.",
+          "Note the filter sizes and where to buy replacements.",
+          "Get the rental provider's name and service number.",
+          "Confirm what the rental agreement covers, in writing.",
+          "Ask which parts are yours to maintain and which belong to the condominium corporation.",
+          "Check that every supply vent is blowing air and the ERV is running.",
+        ],
+      },
+      {
+        type: "p",
+        text: "If you're still deciding on a plan, our guides to [what the final release includes](/blog/final-release-explained) and [Main vs. Upper Residences](/blog/stacked-towns-main-vs-upper-residence) cover the rest of what to check before you sign.",
+      },
+      {
+        type: "note",
+        text: `Equipment, rental terms and maintenance responsibilities are set by ${PROJECT.developer}, the district energy provider and the condominium corporation, and may change. Confirm them against your agreement of purchase and sale and the documents you receive at closing. E. & O.E.`,
+      },
+    ],
+  },
+
   {
     slug: "final-release-explained",
     title: `What the Final Release at ${PROJECT.name} Actually Includes`,

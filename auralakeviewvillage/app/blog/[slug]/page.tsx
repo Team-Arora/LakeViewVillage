@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { RegisterForm } from "@/components/RegisterForm";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { getPost, POSTS, POSTS_BY_DATE, type PostBlock } from "@/lib/posts";
+import { getPost, parseInline, POSTS, POSTS_BY_DATE, type PostBlock } from "@/lib/posts";
 import { CONTACT, PHASE, SITE_URL } from "@/lib/project";
 
 type Params = { slug: string };
@@ -44,6 +44,28 @@ const dateFormat = new Intl.DateTimeFormat("en-CA", {
   timeZone: "UTC",
 });
 
+const linkClass =
+  "text-mauve-deep underline decoration-mauve/50 underline-offset-2 transition-colors hover:decoration-mauve-deep";
+
+/** Renders block text, turning `[label](href)` into links. Relative hrefs stay in-app. */
+function Inline({ text }: { text: string }) {
+  return parseInline(text).map((s, i) => {
+    if (!s.href) return s.text;
+    if (s.href.startsWith("/")) {
+      return (
+        <Link key={i} href={s.href} className={linkClass}>
+          {s.text}
+        </Link>
+      );
+    }
+    return (
+      <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+        {s.text}
+      </a>
+    );
+  });
+}
+
 function Block({ block }: { block: PostBlock }) {
   switch (block.type) {
     case "h2":
@@ -61,7 +83,9 @@ function Block({ block }: { block: PostBlock }) {
                 aria-hidden="true"
                 className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-lime ring-4 ring-lime/25"
               />
-              <span>{item}</span>
+              <span>
+                <Inline text={item} />
+              </span>
             </li>
           ))}
         </ul>
@@ -69,11 +93,15 @@ function Block({ block }: { block: PostBlock }) {
     case "note":
       return (
         <aside className="mt-10 rounded-xl border-l-2 border-lime bg-cream px-6 py-5 text-sm leading-relaxed text-ash">
-          {block.text}
+          <Inline text={block.text} />
         </aside>
       );
     default:
-      return <p className="mt-6 text-ash">{block.text}</p>;
+      return (
+        <p className="mt-6 text-ash">
+          <Inline text={block.text} />
+        </p>
+      );
   }
 }
 
