@@ -9,7 +9,7 @@ export const AURA_FIVE_OAKS_COMPARISON: Post = {
   readMinutes: 9,
   tag: "Community Comparison",
   body: [
-    { type: "p", text: "If you are considering a Caivan home west of Toronto, Aura at Lakeview Village and Five Oaks in Oakville offer two quite different ways to live. Aura brings stacked townhomes to Mississauga’s waterfront master plan. Five Oaks offers freehold townhomes and detached homes in North Oakville, alongside Sixteen Mile Creek and Lions Valley Park." },
+    { type: "p", text: "If you are considering a Caivan home west of Toronto, Aura at Lakeview Village and [Five Oaks by Caivan in Oakville](https://www.fiveoaksoakville.co/) offer two quite different ways to live. Aura brings stacked townhomes to Mississauga’s waterfront master plan. Five Oaks offers freehold townhomes and detached homes in North Oakville, alongside Sixteen Mile Creek and Lions Valley Park." },
     { type: "p", text: "The useful question is which home fits your household, budget and daily routine. A compact waterfront residence, a back-to-back townhome and a detached house serve different needs, even when they share a builder. This guide compares the settings, layouts and recorded purchase details to help you narrow your shortlist." },
     { type: "note", text: "Information checked October 23, 2026 against supplied Caivan builder material and the builder’s public community pages. Aura’s supplied FAQ and deposit schedule are dated June 2026; Five Oaks price and deposit sheets are dated October 2026. Figures below are recorded reference points, not confirmation of today’s inventory or your purchase terms. Request a current, lot-specific quotation." },
     { type: "h2", text: "Aura vs. Five Oaks at a glance" },

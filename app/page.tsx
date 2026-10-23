@@ -641,7 +641,10 @@ export default function HomePage() {
             </h2>
             <p className="mt-4 max-w-3xl text-base leading-relaxed text-ash">
               Choosing between waterfront living in Mississauga and a home in North Oakville?
-              Compare Aura at Lakeview Village and Five Oaks by Caivan, including home types,
+              Compare Aura at Lakeview Village and{" "}
+              <a href="https://www.fiveoaksoakville.co/" className="font-medium text-mauve-deep underline underline-offset-4 hover:decoration-mauve-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mauve-deep">
+                Five Oaks by Caivan
+              </a>, including home types,
               neighbourhoods and key purchase considerations.
             </p>
             <a
