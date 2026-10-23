@@ -634,6 +634,26 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section aria-labelledby="five-oaks-heading" className="bg-cream px-5 pt-16 sm:px-8 sm:pt-20">
+          <div className="mx-auto max-w-7xl rounded-xl border border-black/10 bg-white p-7 sm:p-10">
+            <h2 id="five-oaks-heading" className="font-serif text-2xl leading-tight tracking-tight text-ink sm:text-3xl">
+              Explore Five Oaks by Caivan in Oakville
+            </h2>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-ash">
+              Considering other Caivan communities? Five Oaks in North Oakville offers freehold
+              townhomes and detached homes near Sixteen Mile Creek and Lions Valley Park. Explore
+              the home collections, floor plans and neighbourhood to see which setting suits
+              your needs.
+            </p>
+            <a
+              href="https://www.fiveoaksoakville.co/"
+              className="mt-6 inline-block text-sm font-semibold text-ink underline decoration-lime decoration-2 underline-offset-4 hover:decoration-mauve-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mauve-deep"
+            >
+              Explore Five Oaks Oakville &rarr;
+            </a>
+          </div>
+        </section>
+
         {/* ----------------------------------------------------------- Insights */}
         <section className="bg-cream py-20 sm:py-24">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
