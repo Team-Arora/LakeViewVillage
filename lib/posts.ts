@@ -1,3 +1,4 @@
+import { AURA_FIVE_OAKS_COMPARISON } from "@/lib/aura-five-oaks-comparison";
 import {
   ADDRESS,
   DEPOSIT_TOTAL,
@@ -20,6 +21,8 @@ import {
  */
 
 export type PostBlock =
+  | { type: "image"; src: string; alt: string; caption: string; width: number; height: number }
+  | { type: "table"; caption: string; headers: string[]; rows: string[][] }
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
   | { type: "ul"; items: string[] }
@@ -60,6 +63,7 @@ export function parseInline(text: string): InlineSegment[] {
 }
 
 export const POSTS: Post[] = [
+  AURA_FIVE_OAKS_COMPARISON,
   {
     slug: "fan-coil-erv-maintenance-guide",
     title: `Owning the Fan Coil and ERV at Aura: A Maintenance Guide for ${PROJECT.masterPlan} Buyers`,

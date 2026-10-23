@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { RegisterForm } from "@/components/RegisterForm";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -68,6 +69,32 @@ function Inline({ text }: { text: string }) {
 
 function Block({ block }: { block: PostBlock }) {
   switch (block.type) {
+    case "image":
+      return (
+        <figure className="mt-10">
+          <Image src={block.src} alt={block.alt} width={block.width} height={block.height}
+            sizes="(max-width: 768px) 100vw, 704px" className="h-auto w-full rounded-xl" />
+          <figcaption className="mt-3 text-xs leading-relaxed text-ash">{block.caption}</figcaption>
+        </figure>
+      );
+    case "table":
+      return (
+        <div className="mt-8 overflow-x-auto rounded-xl border border-black/10 focus-visible:outline-2 focus-visible:outline-mauve-deep" tabIndex={0} role="region" aria-label={block.caption}>
+          <table className="w-full min-w-[600px] border-collapse text-left text-sm leading-relaxed">
+            <caption className="bg-cream px-5 py-4 text-left font-medium text-ink">{block.caption}</caption>
+            <thead className="bg-ink text-white">
+              <tr>{block.headers.map((header) => <th key={header} scope="col" className="px-5 py-4 font-medium">{header}</th>)}</tr>
+            </thead>
+            <tbody>{block.rows.map((row) => (
+              <tr key={row[0]} className="border-t border-black/10 align-top">
+                {row.map((cell, index) => index === 0
+                  ? <th key={index} scope="row" className="px-5 py-4 font-medium text-ink"><Inline text={cell} /></th>
+                  : <td key={index} className="px-5 py-4 text-ash"><Inline text={cell} /></td>)}
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      );
     case "h2":
       return (
         <h2 className="mt-12 font-serif text-2xl leading-snug text-ink sm:text-3xl">
